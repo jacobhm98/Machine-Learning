@@ -1,6 +1,6 @@
 import monkdata as m
 import dtree as d
-import numpy as np
+import random
 
 def printFirstFourAssignments():
     print("Entropy of the datasets:")
@@ -46,9 +46,33 @@ def createTreeManually():
         for i in range(0, len(firstLevelNode[1])):
             firstLevelNode[1][i] = d.mostCommon(firstLevelNode[1][i])
     return tree
-tree = createTreeManually()
-id1Tree = d.buildTree(m.monk1, m.attributes, 2)
-print("Manually created tree:")
-print(tree)
-print("ID3 created tree 2 levels deep")
-print(id1Tree)
+
+def compareTrees():
+    tree = createTreeManually()
+    id1Tree = d.buildTree(m.monk1, m.attributes, 2)
+    print("Manually created tree:")
+    print(tree)
+    print("ID3 created tree 2 levels deep")
+    print(id1Tree)
+
+def assignment5():
+    t1 = d.buildTree(m.monk1, m.attributes)
+    print("MONK1 training and test accuracy")
+    print(d.check(t1, m.monk1))
+    print(d.check(t1, m.monk1test))
+
+    t2 = d.buildTree(m.monk2, m.attributes)
+    print("MONK2 training and test accuracy")
+    print(d.check(t2, m.monk2))
+    print(d.check(t2, m.monk2test))
+
+    t3 = d.buildTree(m.monk3, m.attributes)
+    print("MONK3 training and test accuracy")
+    print(d.check(t3, m.monk3))
+    print(d.check(t3, m.monk3test))
+
+def partition(data, fraction):
+    ldata = list(data)
+    random.shuffle(ldata)
+    breakPoint = int(len(ldata) * fraction)
+    return ldata[:breakPoint], ldata[breakPoint:]

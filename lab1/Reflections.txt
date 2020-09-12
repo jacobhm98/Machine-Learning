@@ -1,0 +1,87 @@
+Assignment 0:
+
+	I began by considering the optimal structure of decision trees the algorithm attempts to learn given the data.
+	I consider monk1 to be a relatively easy structure to learn, as with two comparisons, an answer is found. First,
+	we need to check if a1=a2, if this is true, we arrive at a leaf node -> true. If it is false, we need to compare
+	the value of a5 with 1. Then, again, we arrive at a leaf node. I also believe that the algorithm quickly will
+	learn the first condition, as the intersection a1=a2 in the input space will give by far the highest information gain.
+
+	The optimal structure of monk2 is a little harder. First we check if either a3 or a6 are = 1, due to their smaller domain
+	checking them first means the highest information gain, then we need to check if any other
+	dependent variable is equal to 1. No matter what happens we need to consider all variables, and the final outcome depends on all
+	previous comparisons. This will be a very complicated optimal tree.
+	
+
+	Monk 3 consists of two clauses that are equally likely to be true, due to equal size domain of all involved variables of each clause.
+	These variables are also only compared with constant values, and only one clause needs to be true, thus the decision tree
+	is relatively simple. The 5% noise doesn't help, and I believe this will contribute to making this relationship
+	harder to learn than monk1.
+
+	Overall, my conclusion is that monk2 will be the hardest decision tree to construct.
+
+Assignment 1:
+	Monk1: 1.0
+	Monk2: 0.957117428264771
+	Monk3: 0.9998061328047111
+
+Assignment 2:
+	Since this is a binary distribution the maximum value for entropy is 1.0. This occurs when the distribution of data is as non-uniform
+	as possible, or equally distributed between the two possible values. Entropy is low when the uniformity is high, or when the dataset
+	is dominated by a single class. XlogX when 0 < X <= 1 looks like a parabola. This means that Entropy takes on the highest
+	value when X is as close to 0.5 as possible. Since we are talking about X as a proportion, X is really Xi, where all X's
+	need to add to 1. Thus the sum is highest when all X's are as close to 0.5 as possible, which happens when their proportion
+	is as close to equal as possible, meaning that one class cannot dominate the data. Entropy is highest when data is as far from
+	uniform as possible.
+
+Assignment 3:
+	Monk1:
+		Information gain of attribute: A1
+		0.07527255560831925
+		Information gain of attribute: A2
+		0.005838429962909286
+		Information gain of attribute: A3
+		0.00470756661729721
+		Information gain of attribute: A4
+		0.02631169650768228
+		Information gain of attribute: A5
+		0.28703074971578435
+		Information gain of attribute: A6
+		0.0007578557158638421
+	Monk2:
+		Information gain of attribute: A1
+		0.0037561773775118823
+		Information gain of attribute: A2
+		0.0024584986660830532
+		Information gain of attribute: A3
+		0.0010561477158920196
+		Information gain of attribute: A4
+		0.015664247292643818
+		Information gain of attribute: A5
+		0.01727717693791797
+		Information gain of attribute: A6
+		0.006247622236881467
+	Monk3:
+		Information gain of attribute: A1
+		0.007120868396071844
+		Information gain of attribute: A2
+		0.29373617350838865
+		Information gain of attribute: A3
+		0.0008311140445336207
+		Information gain of attribute: A4
+		0.002891817288654397
+		Information gain of attribute: A5
+		0.25591172461972755
+		Information gain of attribute: A6
+		0.007077026074097326
+		
+	We want to choose the attribute that maximizes information gain. That means that for monk1 we will choose
+	attribute a5, for monk2 we will also choose attribute a5, and for monk3 we will choose attribute a2.
+
+Assignment 4:
+	If we choose the attribute that maximizes information gain then we are choosing the attribute which creates subsets
+	with as little entropy as possible, when we split the set based on the possible values of the attribute. This means
+	that the resulting subsets will be as uniform as possible, leading to (hopefully, if the training data is representative)
+	as few misclassifications as possible, as the resulting mapping of input space -> average label of that input space should
+	be more representative of reality and contain fewer errors.
+
+
