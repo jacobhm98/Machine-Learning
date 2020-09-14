@@ -91,12 +91,12 @@ def chooseBestTree(trees, valSet):
 def pruneTree(dataset, fraction):
     trainSet, valSet = partition(dataset, fraction)
     tree = d.buildTree(trainSet, m.attributes)
-    validationPerformance = 0.0
-    newValidationPerformance = 1.0
+    validationPerformance = d.check(tree, valSet) * 100
+    newValidationPerformance = 101.0
     bestTree = tree
     while validationPerformance < newValidationPerformance:
         tree = bestTree
-        validationPerformance = newValidationPerformance
+        validationPerformance = d.check(tree, valSet) * 100
         newTrees = d.allPruned(tree)
         bestTree = chooseBestTree(newTrees, valSet)
         newValidationPerformance = d.check(bestTree, valSet) * 100
