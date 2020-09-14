@@ -54,6 +54,7 @@ def compareTrees():
     print(tree)
     print("ID3 created tree 2 levels deep")
     print(id1Tree)
+compareTrees()
 
 def assignment5():
     t1 = d.buildTree(m.monk1, m.attributes)
@@ -76,3 +77,25 @@ def partition(data, fraction):
     random.shuffle(ldata)
     breakPoint = int(len(ldata) * fraction)
     return ldata[:breakPoint], ldata[breakPoint:]
+
+def chooseBestTree(trees, valSet):
+    maxAccuracy = 0.0
+    index = -1
+    for i in range(0, len(trees)):
+        currAccuracy = d.check(trees[i], valSet) * 100
+        if currAccuracy > maxAccuracy:
+            maxAccuracy = currAccuracy
+            index = i
+    return trees[index]
+
+def pruneTree(tree, dataset, fraction):
+    trainSet, valSet = partition(dataset, fraction)
+    validationPerformance = d.check(tree, valSet) * 100
+    newValidationPerformance = 101.0
+    bestTree = tree
+    while validationPerformance < newValidationPerformance:
+        tree = bestTree
+        newTrees = d.allPruned(tree)
+        bestTree = chooseBestTree(newTrees)
+        newValidationPerformance = d.check(bestTree, valSet) * 100
+    return tree

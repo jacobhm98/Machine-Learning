@@ -84,4 +84,22 @@ Assignment 4:
 	as few misclassifications as possible, as the resulting mapping of input space -> average label of that input space should
 	be more representative of reality and contain fewer errors.
 
+Assignment 5:
+	The fully trained trees perform like this:
+		MONK1 training and test accuracy
+		1.0
+		0.8287037037037037
+		MONK2 training and test accuracy
+		1.0
+		0.6921296296296297
+		MONK3 training and test accuracy
+		1.0
+		0.9444444444444444
+	Contrary to what I believed, monk3 seems to be the dataset that the decision tree algorithm performs the best on, despite the noise.
+	I was however right about the fact that monk2 was the dataset that seemed the most difficult to learn. There doesn't seem to be a
+	high degree of overtraining on these datasets due to the fact that validation accuracy increases as the maxdepth param increases
+	until maxdepth is approximately 5, then testing accuracy doesn't change much. I expected the validation accuracy to drop as
+	maxdepth was increased beyond this point.
 
+Assignment 6:
+	
