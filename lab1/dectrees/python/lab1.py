@@ -1,6 +1,8 @@
 import monkdata as m
 import dtree as d
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 
 def printFirstFourAssignments():
     print("Entropy of the datasets:")
@@ -88,7 +90,7 @@ def chooseBestTree(trees, valSet):
             index = i
     return trees[index]
 
-def pruneTree(dataset, fraction):
+def prunedTree(dataset, fraction):
     trainSet, valSet = partition(dataset, fraction)
     tree = d.buildTree(trainSet, m.attributes)
     validationPerformance = d.check(tree, valSet) * 100
@@ -102,4 +104,42 @@ def pruneTree(dataset, fraction):
         newValidationPerformance = d.check(bestTree, valSet) * 100
     return tree
 
-pruneTree(m.monk1, 0.9)
+def errorAndVariance(trainSet, testSet, numIter):
+    fractions = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+    testError = np.zeros(len(fractions), dtype=float)
+    testVariance = np.zeros(len(fractions), dtype=float)
+    errors = np.zeros(numIter, dtype=float)
+    for i in range(0, len(fractions)):
+        for j in range(0, numIter):
+            error = (1 - d.check(prunedTree(trainSet, fractions[i]), testSet)) * 100
+            errors[j] = error
+        testError[i] = errors.mean(dtype=float)
+        testVariance[i] = errors.var(dtype=float)
+    return testError, testVariance
+
+def plotErrorsAndVariance():
+    error1, variance1 = errorAndVariance(m.monk1, m.monk1test, 100)
+    error3, variance3 = errorAndVariance(m.monk3, m.monk3test, 100)
+    fractions = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+    plt.figure()
+    plt.subplot(211)
+    plt.title("Error vs Fraction of training to validation set")
+    plt.xlabel("Fraction of training to validation set")
+    plt.ylabel("Error")
+    plt.plot(fractions, error1, label="1")
+    plt.plot(fractions, error3, label="3")
+    plt.legend()
+
+    plt.subplot(212)
+    plt.title("Variance vs Fraction of training to validation set")
+    plt.xlabel("Fraction of training to validation set")
+    plt.ylabel("Variance")
+    plt.plot(fractions, variance1, label="1")
+    plt.plot(fractions, variance3, label="3")
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+plotErrorsAndVariance()
+
+

@@ -102,4 +102,11 @@ Assignment 5:
 	maxdepth was increased beyond this point.
 
 Assignment 6:
-	
+	Decision trees have very low bias as they place very little restrictions on the types of functions and shapes they can segment the
+	input/parameter-space into. As the tree grows larger and larger, it aims to segment the input space into subgroups that have lower
+	and lower entropy, or subgroups that are more and more pure. This also means that the groups the parameter-space is segmented into
+	will contain smaller and smaller amounts of examples. This means that the contribution of a single data-point to the classification
+	assigned to the subgroup that contains it becomes larger and larger. This means that resultant decision tree is more and more
+	sensitive to its training set, as the size of the decision tree grows. In other words, the variance of the decision tree increases
+	with size of the decision tree. Thus, pruning the decision tree is a method to reduce the decision tree's variance, and hopefully
+	reduce the level of overfitting on the training dataset.
