@@ -141,5 +141,3 @@ def plotErrorsAndVariance():
     plt.tight_layout()
     plt.show()
 plotErrorsAndVariance()
-
-
