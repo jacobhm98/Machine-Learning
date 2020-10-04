@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
+from scipy.spatial import distance
+import math
 
 
 np.random.seed(100)
@@ -24,6 +26,14 @@ Pmat = np.zeros((N, N), dtype=float)
 
 def linear_kernel(j, i):
     return np.dot(i, j)
+
+power:int = 2
+def polynomial_kernel(i, j):
+    return pow(np.dot(i, j) + 1, power)
+
+sigma:float = 1
+def rbf_kernel(i, j):
+    return math.exp(-pow(distance(i, j), 2)/(2 * sigma ** 2))
 
 kernel_function = linear_kernel
 
@@ -64,7 +74,6 @@ def extractUsefulSV(suppportVectors):
             indexS = i
             break
     return indexS
-
 
 def calculateThreshold(supportVectors):
     indexS = extractUsefulSV(supportVectors)
