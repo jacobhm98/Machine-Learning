@@ -1,0 +1,43 @@
+1.
+	The optimizer is able to find a solution whenever the clusters are linearly separable. This is with
+	C set to None and with the linear kernel. It is also unable to find a solution when the clusters
+	are very close to each other, perhaps this is due to the spread of training data.
+
+2.
+	Yes, they were able to classify some data sets that the linear_kernel could not.
+
+3.
+	RBF Kernel:
+		Sigma:
+			As sigma increases so does the rigidity of the decision boundary. At low values
+			the decision boundaries appear to be quite flexible, consisting of different
+			curves. However, as it increases the decision boundaries begin to resemble straight
+			lines. This suggests that increasing sigma carries with it a decrease in variance
+			and increase in bias, and vice versa for lower values of sigma.
+	Polynomial Kernel:
+		P:
+			A larger P value seems to allow for more complex transformations, which in turn
+			creates a more complex classifier with more unpredictable decision boundaries.
+			In terms of bias-variance, this seems to imply that the classifier is able to
+			construct its bound to accomodate smaller fluctuations in the training data
+			which increases the variance of the shape of the decision bound, and decreases its
+			bias.
+
+4.
+	C controls the amount of slack we allow in the SVM. When C is None, the SVM behaves like a 
+	support vector classifier, no misclassification on the training data is allowed. However, if C is
+	not None, some error is allowed. The smaller the value of C, the less severe a misclassification
+	is, and the more error is allowed. However, as C increases, the misclassification is given more
+	and more importance, and misclassifications are minimized. At large values of C, the SVM resembles
+	a support vector classifier.
+
+5.
+	If the underlying relationship that you are trying to teach your classifier is suspected to be
+	rather simple, or entirely linearly classifiable without any transformations, but the training
+	data may appear to be noisy, I believe it is best to tune the slack parameter in order to deal 
+	with some of the noise. This is due to the fact that the relatively high bias of the linear 
+	model does not inhibit it to learn the simple relationship, and the variance of these models are 
+	quite low. However, if the relationship that you are dealing with is more complex by nature, 
+	perhaps even though the training data is of excellent quality and low noise, then the high bias 
+	of the linear kernel will be a detriment to successful classifications. Thus, one needs to choose 
+	a more complex kernel to compute adequate decision boundaries.

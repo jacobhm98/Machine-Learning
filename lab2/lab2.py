@@ -1,14 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
-from scipy.spatial import distance
 import math
 
 
 np.random.seed(100)
 # Generate training data
-classA = np.concatenate((np.random.randn(10, 2) * 0.2 + [1.5, 0.5], np.random.randn(10, 2) * 0.2 + [-1.5, 0.5]))
-classB = np.random.randn(20, 2) * 0.2 + [0.0, -1.5]
+classA = np.concatenate((np.random.randn(10, 2) * 0.5 + [1.5, 0.5], np.random.randn(10, 2) * 0.5 + [-1.5, 0.5]))
+classB = np.random.randn(20, 2) * 0.5 + [0.0, -1.5]
 inputs = np.concatenate((classA, classB))
 targets = np.concatenate ((np.ones(classA.shape[0]), -np.ones(classB.shape[0])))
 
@@ -21,19 +20,19 @@ targets = targets[permute]
 
 
 # CONSTANTS
-C = None
+C = 100
 Pmat = np.zeros((N, N), dtype=float)
+power:int = 6
+sigma:float = 20
 
 def linear_kernel(j, i):
     return np.dot(i, j)
 
-power:int = 2
 def polynomial_kernel(i, j):
     return pow(np.dot(i, j) + 1, power)
 
-sigma:float = 1
 def rbf_kernel(i, j):
-    return math.exp(-pow(distance(i, j), 2)/(2 * sigma ** 2))
+    return math.exp(-math.pow(np.linalg.norm(np.subtract(i, j)), 2)/(2 * math.pow(sigma,2)))
 
 kernel_function = linear_kernel
 
@@ -93,6 +92,7 @@ def indicatorFunction(X):
 # Plot training data
 plt.plot([p[0] for p in classA], [p[1] for p in classA], 'b.')
 plt.plot([p[0] for p in classB], [p[1] for p in classB], 'r.')
+plt.plot([p[1][0] for p in supportVectors], [p[1][1] for p in supportVectors], 'yo')
 plt.axis('equal')
 
 # Plot decision boundary
