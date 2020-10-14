@@ -159,13 +159,13 @@ class BayesClassifier(object):
 # Call the `testClassifier` and `plotBoundary` functions for this part.
 
 
-testClassifier(BayesClassifier(), dataset='iris', split=0.7)
-
-
-testClassifier(BayesClassifier(), dataset='vowel', split=0.7)
-
-
-plotBoundary(BayesClassifier(), dataset='iris',split=0.7)
+#testClassifier(BayesClassifier(), dataset='iris', split=0.7)
+#
+#
+#testClassifier(BayesClassifier(), dataset='vowel', split=0.7)
+#
+#
+#plotBoundary(BayesClassifier(), dataset='iris',split=0.7)
 
 
 # ## Boosting functions to implement
@@ -209,9 +209,9 @@ def trainBoost(base_classifier, X, labels, T=10):
         tempWeights = wCur
 
         for index in correct:
-            wCur = tempWeights[index] * np.exp(-alpha)
+            wCur[index] = tempWeights[index] * np.exp(-alpha)
         for index in wrong:
-            wCur = tempWeights[index] * np.exp(alpha)
+            wCur[index] = tempWeights[index] * np.exp(alpha)
         wCur = wCur/np.sum(wCur)
 
     return classifiers, alphas
@@ -231,14 +231,11 @@ def classifyBoost(X, classifiers, alphas, Nclasses):
         return classifiers[0].classify(X)
     else:
         votes = np.zeros((Npts, Nclasses))
+        for index, classifier in enumerate(classifiers):
+            classification = classifier.classify(X)
+            for i in range(Npts):
+                votes[i][classification[i]] += alphas[index]
 
-        # TODO: implement classificiation when we have trained several classifiers!
-        # here we can do it by filling in the votes vector with weighted votes
-        # ==========================
-
-        # ==========================
-
-        # one way to compute yPred after accumulating the votes
         return np.argmax(votes, axis=1)
 
 
@@ -267,34 +264,34 @@ class BoostClassifier(object):
 # Call the `testClassifier` and `plotBoundary` functions for this part.
 
 
-# testClassifier(BoostClassifier(BayesClassifier(), T=10), dataset='iris',split=0.7)
-
-
-# testClassifier(BoostClassifier(BayesClassifier(), T=10), dataset='vowel',split=0.7)
-
-
-# plotBoundary(BoostClassifier(BayesClassifier()), dataset='iris',split=0.7)
+#testClassifier(BoostClassifier(BayesClassifier(), T=10), dataset='iris',split=0.7)
+#
+#
+#testClassifier(BoostClassifier(BayesClassifier(), T=10), dataset='vowel',split=0.7)
+#
+#
+#plotBoundary(BoostClassifier(BayesClassifier()), dataset='iris',split=0.7)
 
 
 # Now repeat the steps with a decision tree classifier.
 
 
-# testClassifier(DecisionTreeClassifier(), dataset='iris', split=0.7)
+testClassifier(DecisionTreeClassifier(), dataset='iris', split=0.7)
 
 
-# testClassifier(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='iris',split=0.7)
+testClassifier(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='iris',split=0.7)
 
 
-# testClassifier(DecisionTreeClassifier(), dataset='vowel',split=0.7)
+testClassifier(DecisionTreeClassifier(), dataset='vowel',split=0.7)
 
 
-# testClassifier(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='vowel',split=0.7)
+testClassifier(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='vowel',split=0.7)
 
 
-# plotBoundary(DecisionTreeClassifier(), dataset='iris',split=0.7)
+plotBoundary(DecisionTreeClassifier(), dataset='iris',split=0.7)
 
 
-# plotBoundary(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='iris',split=0.7)
+plotBoundary(BoostClassifier(DecisionTreeClassifier(), T=10), dataset='iris',split=0.7)
 
 
 # ## Bonus: Visualize faces classified using boosted decision trees

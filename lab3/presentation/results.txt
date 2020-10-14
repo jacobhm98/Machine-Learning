@@ -1,0 +1,103 @@
+Naive Bayes on Iris dataset
+Trial: 0 Accuracy 84.4
+Trial: 10 Accuracy 95.6
+Trial: 20 Accuracy 93.3
+Trial: 30 Accuracy 86.7
+Trial: 40 Accuracy 88.9
+Trial: 50 Accuracy 91.1
+Trial: 60 Accuracy 86.7
+Trial: 70 Accuracy 91.1
+Trial: 80 Accuracy 86.7
+Trial: 90 Accuracy 91.1
+Final mean classification accuracy  89 with standard deviation 4.16
+
+Decision tree on Iris
+Trial: 0 Accuracy 95.6
+Trial: 10 Accuracy 100
+Trial: 20 Accuracy 91.1
+Trial: 30 Accuracy 91.1
+Trial: 40 Accuracy 93.3
+Trial: 50 Accuracy 91.1
+Trial: 60 Accuracy 88.9
+Trial: 70 Accuracy 88.9
+Trial: 80 Accuracy 93.3
+Trial: 90 Accuracy 88.9
+Final mean classification accuracy  92.4 with standard deviation 3.71
+
+Naive bayes Vowel dataset
+Trial: 0 Accuracy 61
+Trial: 10 Accuracy 66.2
+Trial: 20 Accuracy 74
+Trial: 30 Accuracy 66.9
+Trial: 40 Accuracy 59.7
+Trial: 50 Accuracy 64.3
+Trial: 60 Accuracy 66.9
+Trial: 70 Accuracy 63.6
+Trial: 80 Accuracy 62.3
+Trial: 90 Accuracy 70.8
+Final mean classification accuracy  64.7 with standard deviation 4.03
+
+Decision Tree vowel dataset
+Trial: 0 Accuracy 63.6
+Trial: 10 Accuracy 68.8
+Trial: 20 Accuracy 63.6
+Trial: 30 Accuracy 66.9
+Trial: 40 Accuracy 59.7
+Trial: 50 Accuracy 63
+Trial: 60 Accuracy 59.7
+Trial: 70 Accuracy 68.8
+Trial: 80 Accuracy 59.7
+Trial: 90 Accuracy 68.2
+Final mean classification accuracy  64.1 with standard deviation 4
+
+ADABoosted Naive Bayes on Iris:
+Trial: 0 Accuracy 95.6
+Trial: 10 Accuracy 100
+Trial: 20 Accuracy 93.3
+Trial: 30 Accuracy 91.1
+Trial: 40 Accuracy 97.8
+Trial: 50 Accuracy 93.3
+Trial: 60 Accuracy 93.3
+Trial: 70 Accuracy 97.8
+Trial: 80 Accuracy 95.6
+Trial: 90 Accuracy 93.3
+Final mean classification accuracy  94.1 with standard deviation 6.72
+
+Boosted decision tree on iris:
+Trial: 0 Accuracy 95.6
+Trial: 10 Accuracy 100
+Trial: 20 Accuracy 95.6
+Trial: 30 Accuracy 91.1
+Trial: 40 Accuracy 93.3
+Trial: 50 Accuracy 95.6
+Trial: 60 Accuracy 88.9
+Trial: 70 Accuracy 93.3
+Trial: 80 Accuracy 93.3
+Trial: 90 Accuracy 93.3
+Final mean classification accuracy  94.6 with standard deviation 3.67
+
+boosted naive bayes on vowel:
+Trial: 0 Accuracy 76.6
+Trial: 10 Accuracy 86.4
+Trial: 20 Accuracy 83.1
+Trial: 30 Accuracy 80.5
+Trial: 40 Accuracy 72.7
+Trial: 50 Accuracy 76
+Trial: 60 Accuracy 81.8
+Trial: 70 Accuracy 82.5
+Trial: 80 Accuracy 79.9
+Trial: 90 Accuracy 83.1
+Final mean classification accuracy  80.2 with standard deviation 3.52
+
+boosted decision tree on vowel dataset:
+Trial: 0 Accuracy 86.4
+Trial: 10 Accuracy 87.7
+Trial: 20 Accuracy 87
+Trial: 30 Accuracy 92.2
+Trial: 40 Accuracy 83.8
+Trial: 50 Accuracy 81.2
+Trial: 60 Accuracy 90.3
+Trial: 70 Accuracy 89.6
+Trial: 80 Accuracy 86.4
+Trial: 90 Accuracy 86.4
+Final mean classification accuracy  86.5 with standard deviation 2.85

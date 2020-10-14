@@ -1,25 +1,61 @@
-Iris dataset
-Trial: 0 Accuracy 84.4
-Trial: 10 Accuracy 95.6
-Trial: 20 Accuracy 93.3
-Trial: 30 Accuracy 86.7
-Trial: 40 Accuracy 88.9
-Trial: 50 Accuracy 91.1
-Trial: 60 Accuracy 86.7
-Trial: 70 Accuracy 91.1
-Trial: 80 Accuracy 86.7
-Trial: 90 Accuracy 91.1
-Final mean classification accuracy  89 with standard deviation 4.16
-Vowel dataset
-Trial: 0 Accuracy 61
-Trial: 10 Accuracy 66.2
-Trial: 20 Accuracy 74
-Trial: 30 Accuracy 66.9
-Trial: 40 Accuracy 59.7
-Trial: 50 Accuracy 64.3
-Trial: 60 Accuracy 66.9
-Trial: 70 Accuracy 63.6
-Trial: 80 Accuracy 62.3
-Trial: 90 Accuracy 70.8
-Final mean classification accuracy  64.7 with standard deviation 4.03
+Assignment 1:
+	Sure, this is done.
 
+Assignment 2:
+	Yes, this is also done.
+
+Assignment 3:
+	In practicality, our features are almost never completely independent. For example, one common use case might be spam-filtering
+	or natural language analysis. In these scenarios the features (words present) are almost guaranteed to not be independent,
+	as certain words go together more frequently in speech. Given the beginning of a sentence, a person can usually predict the
+	end, showing that the end is dependent on the words that came before. Assuming independence allows us to greatly simplify
+	the computations needed to produce and train our naive bayes classifier. I am honestly not entirely sure when we may not assume
+	feature independence, perhaps when features are much too correlated, what this threshold is quantitatively I do not know.
+	Even if features are in reality not completely dependent, naive bayes often works well anyways.
+
+	The decision boundary between class 0 and class 1 looks like a straight vertical line, and seems to correctly classify the datasets
+	often. However, the decision boundary between class 1 and class 2 looks like a curve, and seems to be misclassifying quite a few points.
+	The distribution of the data appears to be collinear, and thus not feature independent. Class 1 and class 2 are also rather close to each
+	other, perhaps causing problems for the naive bayes classifier. It does look like the optimal decision boundaries are straight lines,
+	so a SVM would perhaps be a better choice of classifier for this problem. Perhaps the data could be manipulated in a way that certain
+	points from class 2 that are closer to the mean location of class1 are removed (introduce slack), so that the distinction between 
+	classes is enhanced, or experimentation with non-linear transformations could be attempted to see if this yields better separation between
+	classes.
+
+Assignment 4:
+	Done.
+
+Assignment 5:
+	Yes, all datasets saw at least a little bit of improvement with classification accuracy, and the vowel dataset saw a great deal of
+	improvement in accuracy. The improvement is due to the fact that the impact of points that are harder for the model to classify
+	is increased, and due to the fact that multiple "weak" naive bayes models can be confined to form a more complex aggregate model
+	capable of making better decisions on hard datasets.
+
+	The decision boundary that was problematic before now looks much more accurate and well suited to the classes than it was
+	when using the single naive bayes classifier. It does look more complex.
+
+	Yes, as demonstrated we can improve our prediction accuracy using boosting. However, the problems that were there before with
+	regards to lack of feature independence etc. are still individually present in the hypotheses that make up the boosted
+	classifier. This means that they are not eliminated, but worked around.
+
+Assignment 6:
+	Purely from an accuracy standpoint on the validation set, the boosted algorithms outperform the non-boosted algorithms
+	everytime. There is not much difference between performance of decision trees vs naive bayes classifiers. This suggests that
+	boosted algorithms do well with regards to predictive power.
+
+	When a dataset has a large degree of outliers I would not use boosting, as these points would be hard to classify for the
+	weak learners, having them assigned a large degree of weight by our boosting algorithm, causing them to influence the position
+	of our decision boundary too much.
+
+	The naive bayes classifier grows in complexity with number of input features, and has a hard time disregarding useless inputs.
+	This is why one may do some type of statistical analysis on the data to extract only the most important features before
+	attempting to teach a classifier. A decision tree however, analyses the information gain by splitting on each feature,
+	causing them to disregard useless or irrelevant inputs. Thus if this is an issue I would choose a decision tree.
+
+	With mixed types of data I assume both classifiers do well. The naive bayes algorithm can model discrete relations
+	without issue, and deals with a mix of discrete and continuous as well. The same flexibility goes for decision trees.
+
+	Naive bayes does well with a small amount of data, comparatively. I assume that performance also grows with data,
+	as it allows us to gain greater accuracy in modeling the underlying stochastic relationship. Decision trees do not
+	do as well with smaller amounts of data, however. I do believe that computationally, naive bayes is more intensive also.
+	Thus, perhaps decision trees are better suited to larger amounts of data.
