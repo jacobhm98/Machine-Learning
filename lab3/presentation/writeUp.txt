@@ -1,0 +1,25 @@
+Iris dataset
+Trial: 0 Accuracy 84.4
+Trial: 10 Accuracy 95.6
+Trial: 20 Accuracy 93.3
+Trial: 30 Accuracy 86.7
+Trial: 40 Accuracy 88.9
+Trial: 50 Accuracy 91.1
+Trial: 60 Accuracy 86.7
+Trial: 70 Accuracy 91.1
+Trial: 80 Accuracy 86.7
+Trial: 90 Accuracy 91.1
+Final mean classification accuracy  89 with standard deviation 4.16
+Vowel dataset
+Trial: 0 Accuracy 61
+Trial: 10 Accuracy 66.2
+Trial: 20 Accuracy 74
+Trial: 30 Accuracy 66.9
+Trial: 40 Accuracy 59.7
+Trial: 50 Accuracy 64.3
+Trial: 60 Accuracy 66.9
+Trial: 70 Accuracy 63.6
+Trial: 80 Accuracy 62.3
+Trial: 90 Accuracy 70.8
+Final mean classification accuracy  64.7 with standard deviation 4.03
+
