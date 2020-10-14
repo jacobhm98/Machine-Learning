@@ -27,47 +27,48 @@ def computePrior(labels, W=None):
     Nclasses = np.size(classes)
 
     prior = np.zeros((Nclasses, 1), dtype=float)
-
-    # TODO: compute the values of prior for each class!
-    # ==========================
-    i = 0
-    for label in classes:
+    sumOfWeights = np.sum(W)
+    for i, label in enumerate(classes):
         # extract number of occurences of given class
-        datapoints = np.where(label == labels)[0]
-        Nk = np.size(datapoints)
-        prior[i] = Nk / Npts
-        i += 1
-
-    return prior
+        indices = np.where(label == labels)[0]
+        for index in indices:
+            prior[i] += W[index]
+    return prior/sumOfWeights
 
 
 # Given a class label, and training data + training labels we extract all data points that match the label
-def extractDatapoints(X, y, label):
-    labels = np.where(y == label)[0]
+def extractDatapoints(X, y, label, W):
+    labelIndexes = np.where(y == label)[0]
     datapoints = []
-    for i in labels:
+    weights = []
+    for i in labelIndexes:
         datapoints.append(X[i])
-    return np.array(datapoints, dtype=float)
+        weights.append(W[i])
+    return np.array(datapoints, dtype=float), np.array(weights, dtype=float)
 
 
 # calculate the means in each dimension for the given class
-def calculateMean(datapoints):
+def calculateMean(datapoints, weights):
     Npoints, Ndims = np.shape(datapoints)
     means = np.zeros(Ndims, dtype=float)
-    for entry in datapoints:
+    sumOfWeights = 0
+    for i in range(Npoints):
+        sumOfWeights += weights[i]
         for dimension in range(Ndims):
-            means[dimension] += entry[dimension]
-    return means / Npoints
+            means[dimension] += datapoints[i][dimension] * weights[i]
+    return means / sumOfWeights
 
 
 # calculate the sigmas for each class given that classes datapoints and means
-def calculateSigmas(datapoints, means):
+def calculateSigmas(datapoints, means, weights):
     Npoints, Ndims = np.shape(datapoints)
     sigmas = np.zeros((Ndims, Ndims), dtype=float)
-    for entry in datapoints:
+    sumOfWeights = 0
+    for i in range(Npoints):
+        sumOfWeights += weights[i]
         for dimension in range(Ndims):
-            sigmas[dimension][dimension] += pow(entry[dimension] - means[dimension], 2)
-    return 1 / Npoints * sigmas
+            sigmas[dimension][dimension] += weights[i] * pow(datapoints[i][dimension] - means[dimension], 2)
+    return 1/sumOfWeights * sigmas
 
 
 # NOTE: you do not need to handle the W argument for this part!
@@ -91,11 +92,11 @@ def mlParams(X, labels, W=None):
     # for each class
     for label in classes:
         # get datapoints corresponding to this class
-        datapoints = extractDatapoints(X, labels, label)
+        datapoints, weights = extractDatapoints(X, labels, label, W)
         # calculate and update means and sigmas for each class and dimension
-        averages = calculateMean(datapoints)
+        averages = calculateMean(datapoints, weights)
         mu[i] = averages
-        sigma[i] = calculateSigmas(datapoints, averages)
+        sigma[i] = calculateSigmas(datapoints, averages, weights)
         i += 1
     return mu, sigma
 
@@ -197,9 +198,21 @@ def trainBoost(base_classifier, X, labels, T=10):
 
         # TODO: Fill in the rest, construct the alphas etc.
         # ==========================
+        error = np.sum(wCur)
+        correct = np.where(labels == vote)[0]
+        wrong = np.where(labels != vote)[0]
+        for index in correct:
+            error -= wCur[index]
+        alpha = 0.5 * (np.log(1 - error) - np.log(error))
+        alphas.append(alpha)
 
-        # alphas.append(alpha) # you will need to append the new alpha
-        # ==========================
+        tempWeights = wCur
+
+        for index in correct:
+            wCur = tempWeights[index] * np.exp(-alpha)
+        for index in wrong:
+            wCur = tempWeights[index] * np.exp(alpha)
+        wCur = wCur/np.sum(wCur)
 
     return classifiers, alphas
 
