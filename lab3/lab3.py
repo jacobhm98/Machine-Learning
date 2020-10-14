@@ -52,6 +52,17 @@ def calculateMean(datapoints):
             means[dimension] += entry[dimension]
     return means/Npoints
 
+# calculate the sigmas for each class given that classes datapoints and means
+def calculateSigmas(datapoints, means):
+    Npoints,Ndims = np.shape(datapoints)
+    sigmas = np.zeros((Ndims,Ndims), dtype=float)
+    for entry in datapoints:
+        for dimension in range(Ndims):
+            sigmas[dimension][dimension] += pow(entry[dimension] - means[dimension], 2)
+    return 1/Npoints * sigmas
+
+
+
 
 
 # NOTE: you do not need to handle the W argument for this part!
@@ -71,14 +82,16 @@ def mlParams(X, labels, W=None):
     mu = np.zeros((Nclasses,Ndims))
     sigma = np.zeros((Nclasses,Ndims,Ndims))
 
-    # TODO: fill in the code to compute mu and sigma!
-    # ==========================
+    i = 0
+    # for each class
     for label in classes:
+        # get datapoints corresponding to this class
         datapoints = extractDatapoints(X, labels, label)
-        calculateMean(datapoints)
-    
-    # ==========================
-
+        # calculate and update means and sigmas for each class and dimension
+        averages = calculateMean(datapoints)
+        mu[i] = averages
+        sigma[i] = calculateSigmas(datapoints, averages)
+        i += 1
     return mu, sigma
 
 # in:      X - N x d matrix of M data points
