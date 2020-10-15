@@ -29,7 +29,6 @@ def computePrior(labels, W=None):
     prior = np.zeros((Nclasses, 1), dtype=float)
     sumOfWeights = np.sum(W)
     for i, label in enumerate(classes):
-        # extract number of occurences of given class
         indices = np.where(label == labels)[0]
         for index in indices:
             prior[i] += W[index]
@@ -88,16 +87,14 @@ def mlParams(X, labels, W=None):
     mu = np.zeros((Nclasses, Ndims))
     sigma = np.zeros((Nclasses, Ndims, Ndims))
 
-    i = 0
     # for each class
-    for label in classes:
+    for i, label in enumerate(classes):
         # get datapoints corresponding to this class
         datapoints, weights = extractDatapoints(X, labels, label, W)
         # calculate and update means and sigmas for each class and dimension
         averages = calculateMean(datapoints, weights)
         mu[i] = averages
         sigma[i] = calculateSigmas(datapoints, averages, weights)
-        i += 1
     return mu, sigma
 
 
