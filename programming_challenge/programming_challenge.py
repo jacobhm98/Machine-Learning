@@ -37,7 +37,7 @@ def sanitizeData(X):
     labels = []
     datapoints = []
     for entry in X:
-        labels.append((entry[0], nameToLabel.get(entry[1])))
+        labels.append(nameToLabel.get(entry[1]))
         datavector = []
         for i in range(2, Ndims):
             if i == 6:
@@ -63,7 +63,7 @@ def shuffleData(X, y):
     for i in range(Npts):
         X[i] = points[i][0]
         y[i] = points[i][1]
-    return np.array(X, dtype=float), np.array(y, dtype=float)
+    return np.array(X, dtype=float), np.array(y, dtype=int)
 
 def splitIntoTrainingAndValidation(X, y, valFraction=0.3):
     Npts = X.shape[0]
@@ -74,19 +74,42 @@ def splitIntoTrainingAndValidation(X, y, valFraction=0.3):
     test_labels = y[:sliceIndex]
 
     training_data = torch.Tensor(training_data)
-    training_labels = torch.Tensor(training_labels)
+    training_data = F.normalize(training_data)
+    training_labels = torch.Tensor(training_labels).long()
     test_data = torch.Tensor(test_data)
-    test_labels = torch.Tensor(test_labels)
+    test_data = F.normalize(test_data)
+    test_labels = torch.Tensor(test_labels).long()
     training_set = TensorDataset(training_data, training_labels)
     test_set = TensorDataset(test_data, test_labels)
     return training_set, test_set
+
+def trainNetwork(network, dataloader):
+    learning_rate = 0.001
+    optimizer = torch.optim.SGD(network.parameters(), lr=learning_rate)
+    running_loss = 0.0
+    for i, datapoint in enumerate(dataloader, 0):
+        X, y = datapoint
+        network.zero_grad()
+        outputs = network(X)
+        loss = F.nll_loss(outputs, y)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+        if i % 20 == 19:
+            print("Iteration: " + str(i))
+            print("loss: " + str(running_loss / 20))
+            running_loss = 0
 
 def main():
     X = importCsv("TrainOnMe.csv")
     X, y = sanitizeData(X)
     X, y = shuffleData(X, y)
+    Z = torch.randn((997, 10)).float()
     training_data, test_data = splitIntoTrainingAndValidation(X, y, 0.3)
-    training_loader = DataLoader(training_data, batch_size=4, shuffle=False)
+    training_loader = DataLoader(training_data, batch_size=1, shuffle=False)
     test_loader = DataLoader(test_data, batch_size=4, shuffle=False)
     net = NeuralNet()
+    EPOCHS = 10
+    for i in range(EPOCHS):
+        trainNetwork(net, training_loader)
 main()
