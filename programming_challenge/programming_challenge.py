@@ -119,7 +119,7 @@ def main():
     training_loader = DataLoader(training_data, batch_size=1, shuffle=False)
     test_loader = DataLoader(test_data, batch_size=1, shuffle=False)
     net = NeuralNet()
-    EPOCHS = 100
+    EPOCHS = 1000
     for i in range(EPOCHS):
         trainNetwork(net, training_loader)
         testNetwork(net, training_loader)
