@@ -65,7 +65,7 @@ def createDataLoaders(training_data, training_labels, test_data, test_labels):
 
 def createTrainedNetwork():
     X = importCsv("TrainOnMe.csv")
-    X, y = sanitizeData(X)
+    X, y = sanitizeTrainingData(X)
     training_data, test_data, training_labels, test_labels = splitIntoTrainingAndValidation(X, y, 0.3)
     training_loader, test_loader = createDataLoaders(training_data, training_labels, test_data, test_labels)
     net = NeuralNet()
